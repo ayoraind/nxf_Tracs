@@ -1,0 +1,7 @@
+name: tracs
+channels:
+  - bioconda
+  - conda-forge
+  - nodefaults
+dependencies:
+  - bioconda::tracs
