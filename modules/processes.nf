@@ -2,7 +2,7 @@ process TRACS_ALIGN {
     tag "$meta"
     publishDir "${params.output_dir}", mode:'copy'
 
-    errorStrategy { task.attempt <= 5 ? "retry" : "finish" }
+    errorStrategy { task.attempt <= 2 ? "retry" : "ignore" }
     maxRetries 5
     
     conda "${projectDir}/conda_environments/tracs.yml"
@@ -24,7 +24,7 @@ process TRACS_ALIGN {
     """
     mkdir ${meta}
     
-    tracs align -i $reads -o ${meta} --prefix ${meta} --minimap_preset 'map-ont' --keep-all -t 20 --database $db > ${meta}/${meta}.log
+    tracs align -i $reads -o ${meta} --prefix ${meta} --minimap_preset 'map-ont' --keep-all -t 1 --database $db > ${meta}/${meta}.log
 
 
     cat <<-END_VERSIONS > versions.yml
